@@ -1,0 +1,17 @@
+.container {
+    text-align: center;
+  }
+  
+  .title {
+    margin-bottom: 80px;
+  }
+  
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .chart-space {
+    margin: 100px;
+}
