@@ -5,6 +5,7 @@
     <div class="chart-space"></div>
     <p-chart type="line" [responsive]="true" height="400px" width="500px" [data]="data" [options]="options"></p-chart>
   </div>
-  <p-button label="Predict Next" [style]="{ 'margin-top.px': 40 }"></p-button>
+  <p-button label="Predict Next" [disabled]="isDisabled" (onClick)="submit()"
+    [style]="{ 'margin-top.px': 40 }"></p-button>
 </div>
 
