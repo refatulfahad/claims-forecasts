@@ -36,11 +36,11 @@ export class AppComponent {
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
         this.basicData = {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q3', 'Q4'],
+            labels: ['May, 2019', 'May, 2019', 'May, 2019', 'May, 2019', 'May, 2019', 'May, 2019'],
             datasets: [
                 {
                     label: 'Claim Amount',
-                    data: [540, 325, 702, 620, 702, 620],
+                    data: [100000, 200000, 300000, 400000, 500000, 600000],
                     backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)'],
                     borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
                     borderWidth: 1
@@ -98,11 +98,11 @@ export class AppComponent {
         };
 
         this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['May, 2019', 'May, 2019', 'May, 2019', 'May, 2019', 'May, 2019', 'May, 2019', 'May, 2019'],
             datasets: [
                 {
                     label: 'Claim Amount',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: [100000, 200000, 300000, 400000, 500000, 600000, 7000000],
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4
