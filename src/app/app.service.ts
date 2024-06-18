@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AppService {
-  protected resourceUrl = '';
+  protected resourceUrl = 'http://127.0.0.1:8000/api/api/forecast/predict_claim_amount/';
 
   constructor(
     protected http: HttpClient

@@ -1,11 +1,9 @@
 <div class="container">
   <h1 class="title">{{ title }}</h1>
   <div class="chart-container">
-    <p-chart type="bar" [responsive]="true" height="400px" width="500px" [data]="basicData" [options]="basicOptions"></p-chart>
-    <div class="chart-space"></div>
-    <p-chart type="line" [responsive]="true" height="400px" width="500px" [data]="data" [options]="options"></p-chart>
+    <p-chart type="bar" [responsive]="true" height="400px" width="900px" [data]="data" [options]="options"></p-chart>
   </div>
-  <p-button label="Predict Next" [disabled]="isDisabled" (onClick)="submit()"
+  <p-button label="Forecast Claim Amounts" [disabled]="isDisabled" (onClick)="submit()"
     [style]="{ 'margin-top.px': 40 }"></p-button>
 </div>
 
