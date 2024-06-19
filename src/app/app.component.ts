@@ -38,10 +38,10 @@ export class AppComponent {
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
         const amounts = this.apiData.map((x: {payment: any; })=> x.payment)
-        const months = this.apiData.map((x: {year: string; month: any; })=> x.month.substring(0, 3)+','+x.year)
+        const months = this.apiData.map((x: {year: string; month: any; })=> x.month.substring(0, 3)+' '+x.year)
 
-        const predictedColor= 'rgba(255, 159, 64, 0.2)'
-        const existingColor = 'rgba(75, 192, 192, 0.2)'
+        const predictedColor= '#f07d96'
+        const existingColor = '#759fa1'
 
         this.data = {
             labels: months,
@@ -50,7 +50,7 @@ export class AppComponent {
                     label:'Amount',
                     data: amounts,
                     backgroundColor: this.apiData.map((x: { is_predicted: boolean; })=>x.is_predicted?predictedColor: existingColor),
-                    borderColor: ['red'],
+                    borderColor: ['teal'],
                     borderWidth: 1
                 }
             ]
@@ -63,11 +63,11 @@ export class AppComponent {
                         color: textColor,
                         generateLabels: function(chart:Chart) {
                             return [{
-                                text: 'Predicted Claim Amount',
+                                text: 'Predicted Claim Amount (BDT)',
                                 fillStyle: predictedColor
                             },
                             {
-                                text: 'Claim Amount',
+                                text: 'Claim Amount (BDT)',
                                 fillStyle: existingColor
                             }];
                         }
@@ -76,7 +76,7 @@ export class AppComponent {
                 tooltip: {
                     callbacks: {
                         label: function(tooltipItem: { raw: string; }) {
-                            return 'Sales: ' + tooltipItem.raw; // Custom label text in tooltip
+                            return 'Claim Amount: ' + tooltipItem.raw + " BDT"; // Custom label text in tooltip
                         }
                     }
                 },
@@ -93,7 +93,7 @@ export class AppComponent {
                     },
                     title: {
                         display: true,
-                        text: 'Claim Amount',
+                        text: 'Claim Amount (BDT)',
                         font: {
                             weight: 'bold',
                             size: 16,
@@ -127,7 +127,7 @@ export class AppComponent {
         this.appService.getAllClaimAmount()
             .subscribe({
                 next: (res) => {
-                   this.apiData = res.body.filter((x: { is_predicted: boolean; })=>!x.is_predicted)
+                   this.apiData = res.body.filter((x: { is_predicted: boolean; })=>!x.is_predicted).slice(-18)
                    this.setUp()
                 },
                 error: () => {
@@ -141,7 +141,7 @@ export class AppComponent {
         this.appService.getPredictedClaimAmount()
             .subscribe({
                 next: (res) => {
-                    this.apiData = res.body
+                    this.apiData = res.body.slice(-18)
                     this.setUp()
                 },
                 error: () => {
