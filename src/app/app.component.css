@@ -1,13 +1,99 @@
+.side-by-side-container {
+  display: flex;
+  padding: 20px; /* Adds padding around the parent container */
+  gap: 20px; /* Adds space between the two child divs */
+}
+
+.corelation-container{
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 100px;
+}
+
 .container {
-    text-align: center;
-  }
-  
-  .title {
-    margin-bottom: 80px;
-  }
-  
-  .chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  flex: 0 0 60%; /* Makes this div take up 60% of the parent's width */
+  text-align: center;
+  background-color: #f0f0f0; /* Added chart container background color */
+  padding: 20px; 
+  border-radius: 8px;
+}
+
+.form-wrapper {
+  flex: 0 0 40%; /* Makes this div take up 40% of the parent's width */
+}
+
+.custom-form {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-wrapper{
+  background-color: #e0f7fa; /* Added form background color */
+  border-radius: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four columns */
+  gap: 10px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: bold;
+  color: #555; /* Changed label color to dark gray */
+  font-size: 14px; /* Reduced font size */
+}
+
+.form-input {
+  width: 100%;
+  padding: 6px 8px; /* Adjusted padding */
+  border: 1px solid #888; /* Changed border color to gray */
+  border-radius: 4px;
+  font-size: 14px; /* Reduced font size */
+  background-color: #f0f0f0; /* Changed background color */
+  box-sizing: border-box;
+  transition: border-color 0.3s, background-color 0.3s; /* Added transition for background color */
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  background-color: #e9ecef; /* Changed background color on focus */
+  outline: none;
+}
+
+.form-button {
+  display: inline-block;
+  padding: 8px 16px; /* Reduced padding */
+  font-size: 14px; /* Reduced font size */
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px; /* Added margin to separate the button from the inputs */
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+.title {
+  margin-bottom: 50px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

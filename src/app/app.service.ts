@@ -19,4 +19,12 @@ export class AppService {
   getPredictedClaimAmount(): Observable<any> {
     return this.http.get(`${this.resourceUrl}`, { observe: 'response' });
   }
+
+  getInitialPredictData(): Observable<any> {
+    return this.http.get('/assets/initialInformations.json');
+  }
+
+  getPredictedClaimAmountWithData(data: any): Observable<any> {
+    return this.http.post(`${this.resourceUrl}`, data, { observe: 'response' });
+  }
 }

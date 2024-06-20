@@ -1,9 +1,29 @@
-<div class="container">
-  <h1 class="title">{{ title }}</h1>
-  <div class="chart-container">
-    <p-chart type="bar" [responsive]="true" height="400px" width="900px" [data]="data" [options]="options"></p-chart>
+<div class="side-by-side-container">
+  <div class="container">
+    <h1 class="title">{{ title }}</h1>
+    <div class="chart-container">
+      <p-chart type="bar" [responsive]="true" height="400px" width="800px" [data]="data" [options]="options"></p-chart>
+    </div>
+    <p-button label="Forecast Claim Amounts" [disabled]="isDisabled" (onClick)="submit()"
+      [style]="{ 'margin-top.px': 40 }"></p-button>
   </div>
-  <p-button label="Forecast Claim Amounts" [disabled]="isDisabled" (onClick)="submit()"
-    [style]="{ 'margin-top.px': 40 }"></p-button>
+  <div class="form-wrapper">
+    <h1 class="title" style="margin-left: 120px;margin-top: 20px;">Informations of {{next_month}} {{next_year}}</h1>
+    <form [formGroup]="inputForm" (ngSubmit)="reset()" class="custom-form">
+      <div class="form-grid">
+        <div *ngFor="let control of controls" class="form-group">
+          <label [for]="control" class="form-label">{{ control }}</label>
+          <input type="number" step="any" [id]="control" [formControlName]="control" class="form-input">
+        </div>
+      </div>
+      <button style="margin-left:200px ;" class="form-button">Reset</button>
+    </form>
+  </div>
 </div>
-
+<div class="corelation-container">
+  <br>
+  <h1 class="title">Impact of Different Parameters</h1>
+  <div style="margin: 50px;">
+    <p-chart type="bar" [responsive]="true" height="400px" width="1000px" [data]="corelationData" [options]="corOptions"></p-chart>
+  </div>
+</div>
