@@ -25,6 +25,7 @@ export class AppService {
   }
 
   getPredictedClaimAmountWithData(data: any): Observable<any> {
+    data.ActiveWeight_P9 = data.ActiveWeight_P9 /100
     return this.http.post(`${this.resourceUrl}`, data, { observe: 'response' });
   }
 }
