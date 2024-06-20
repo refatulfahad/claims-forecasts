@@ -29,7 +29,7 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
     title = 'ClaimsForecasts';
     data: any;
-    corelationData: any;
+    correlationData: any;
     options: any;
     corOptions: any;
     heatMapOptions: any;
@@ -38,7 +38,7 @@ export class AppComponent {
     isDisabled: boolean = false;
     inputForm: any;
     dataSize: any;
-    corelations: any;
+    correlations: any;
     controls = [
         '', 'InsuredCount', 'ChildLessThan18', 'AdultLessThan40', 'MiddleLessThan55',
         'OldGreaterThan55', 'ActiveWeight_P1', 'ActiveWeight_P3', 'ActiveWeight_P4',
@@ -78,17 +78,17 @@ export class AppComponent {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        const props = Object.keys(this.corelations)
-        let vals = Object.values(this.corelations)
+        const props = Object.keys(this.correlations)
+        let vals = Object.values(this.correlations)
         vals = vals.map(x => Math.abs(x as number))
 
-        const barColor = '#ffcccc'
+        const barColor = '#cc5c69'
 
-        this.corelationData = {
+        this.correlationData = {
             labels: props,
             datasets: [
                 {
-                    label: 'Corelation',
+                    label: 'correlation',
                     data: vals,
                     backgroundColor: barColor,
                     borderColor: ['teal'],
@@ -117,7 +117,7 @@ export class AppComponent {
                     },
                     title: {
                         display: true,
-                        text: 'Corelations',
+                        text: 'correlations',
                         font: {
                             weight: 'bold',
                             size: 16,
@@ -244,7 +244,7 @@ export class AppComponent {
             .subscribe({
                 next: (res) => {
                     this.apiData = res.body.claim_data.slice(-18)
-                    this.corelations = res.body.corelations
+                    this.correlations = res.body.correlations
                     this.dataSize = this.apiData.length
                     let lastMonth = this.apiData[this.dataSize - 1].month
                     let lastYear = this.apiData[this.dataSize - 1].year
