@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Chart, TooltipItem } from 'chart.js';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { CommonModule } from '@angular/common';
         HttpClientModule,
         CommonModule,
         ReactiveFormsModule,
+        DialogModule,
     ],
     providers: [
         AppService
@@ -35,18 +37,14 @@ export class AppComponent {
     heatMapOptions: any;
     next_month: any;
     next_year: any;
-    isDisabled: boolean = false;
+    display: boolean = false;
     inputForm: any;
     dataSize: any;
     correlations: any;
-    controls = [
-        '', 'InsuredCount', 'ChildLessThan18', 'AdultLessThan40', 'MiddleLessThan55',
-        'OldGreaterThan55', 'ActiveWeight_P1', 'ActiveWeight_P3', 'ActiveWeight_P4',
-        'ActiveWeight_P5', 'ActiveWeight_P6', 'ActiveWeight_P7', 'ActiveWeight_P8',
-        'ActiveWeight_P9', 'ActiveWeight_P10', 'ActiveWeight_P11', 'ActiveWeight_P12',
-        'ActiveWeight_P13', 'ActiveWeight_P14', 'ActiveWeight_P15', 'ActiveWeight_P16',
-        'ActiveWeight_P17', 'ActiveWeight_P18', 'ActiveWeight_P19', 'ActiveWeight_P21'
-    ];
+    initialNextMonthInfo: any;
+    controls = [];
+
+    noOfMonths: number = 25
 
     apiData: any
 
@@ -57,27 +55,22 @@ export class AppComponent {
 
     ngOnInit() {
         this.getAllData();
-        this.appService.getInitialPredictData()
-            .subscribe({
-                next: (res) => {
-                    this.inputForm = this.fb.group({});
-                    this.controls.forEach(control => {
-                        this.inputForm?.addControl(control, this.fb.control('', Validators.required));
-                    });
-                    this.controls = this.controls.filter(x => x != '')
-                    this.inputForm.patchValue(res);
-                },
-                error: () => {
-
-                }
-            });
     }
-    setUpHeatmap() {
+
+    setUpInitialNextMonthInfo(data:any){
+        this.inputForm = this.fb.group({});
+        this.controls.forEach(control => {
+            this.inputForm?.addControl(control, this.fb.control('', Validators.required));
+        });
+        this.inputForm.patchValue(data);
+    }
+
+    setUpCorrelationChart() {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
+        
         const props = Object.keys(this.correlations)
         let vals = Object.values(this.correlations)
         vals = vals.map(x => Math.abs(x as number))
@@ -88,7 +81,7 @@ export class AppComponent {
             labels: props,
             datasets: [
                 {
-                    label: 'correlation',
+                    label: 'correlation with claim amount',
                     data: vals,
                     backgroundColor: barColor,
                     borderColor: ['teal'],
@@ -243,14 +236,17 @@ export class AppComponent {
         this.appService.getPredictedClaimAmount()
             .subscribe({
                 next: (res) => {
-                    this.apiData = res.body.claim_data.slice(-18)
+                    this.apiData = res.body.claim_data.slice(-this.noOfMonths)
                     this.correlations = res.body.correlations
                     this.dataSize = this.apiData.length
+                    this.initialNextMonthInfo = res.body.next_month_info
+                    this.controls = res.body.cols
                     let lastMonth = this.apiData[this.dataSize - 1].month
                     let lastYear = this.apiData[this.dataSize - 1].year
                     this.getNextMonth(lastMonth, lastYear)
-                    this.setUpHeatmap()
+                    this.setUpCorrelationChart()
                     this.setUp()
+                    this.setUpInitialNextMonthInfo(this.initialNextMonthInfo)
                 }
             });
     }
@@ -281,12 +277,7 @@ export class AppComponent {
     }
 
     reset(): void {
-        this.appService.getInitialPredictData()
-            .subscribe({
-                next: (res) => {
-                    this.inputForm.patchValue(res);
-                }
-            });
+        this.setUpInitialNextMonthInfo(this.initialNextMonthInfo)
     }
 
     getNextMonth(month: string, year: number) {
@@ -307,5 +298,13 @@ export class AppComponent {
 
         this.next_month = monthNames[nextMonthIndex]
         this.next_year = nextYear
+    }
+
+    showDialog() {
+        this.display = true;
+      }
+    predictAndcloseDialog(){
+        this.display = false;
+        this.submit()
     }
 }

@@ -20,12 +20,7 @@ export class AppService {
     return this.http.get(`${this.resourceUrl}`, { observe: 'response' });
   }
 
-  getInitialPredictData(): Observable<any> {
-    return this.http.get('/assets/initialInformations.json');
-  }
-
   getPredictedClaimAmountWithData(data: any): Observable<any> {
-    data.ActiveWeight_P9 = data.ActiveWeight_P9 /100
     return this.http.post(`${this.resourceUrl}`, data, { observe: 'response' });
   }
 }
